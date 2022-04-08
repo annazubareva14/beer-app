@@ -3,9 +3,9 @@
     <div class="profile__photo-wrapper">
       <img :src="photo" alt="userPhoto" class="profile__photo" />
     </div>
-    <div class="profile__name">Name: {{ getFullName }}</div>
-    <div class="profile__age">Age: {{ getCurrentAge }} y.o.</div>
-    <div class="profile__position">Position: {{ position }}</div>
+    <div class="profile__name">{{ getFullName }}</div>
+    <div class="profile__age">{{ getCurrentAge }} y.o.</div>
+    <div class="profile__position">{{ position }}</div>
   </div>
 </template>
 
@@ -58,6 +58,7 @@ export default {
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  font-weight: bold;
 
   &__photo-wrapper {
     max-width: 200px;

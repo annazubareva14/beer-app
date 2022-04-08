@@ -1,5 +1,8 @@
 # bear-app
 
+https://beer-app.pages.dev/
+a simple app wich gives randome beer advices for you
+
 ## Project setup
 ```
 npm install
