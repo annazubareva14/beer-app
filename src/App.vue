@@ -28,7 +28,7 @@ body {
   background-color: #f6bc7f;
 
   @media screen and (max-width: 500px) {
-    font-size: 26x;
+    font-size: 24px;
   }
 }
 

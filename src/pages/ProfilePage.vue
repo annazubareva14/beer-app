@@ -1,30 +1,35 @@
 <template>
-  <div class="profile-page">
-    <Profile
-      :photo="getProfileInfo.avatar"
-      :first-name="getProfileInfo.first_name"
-      :last-name="getProfileInfo.last_name"
-      :birth-date="getProfileInfo.date_of_birth"
-      :position="getPosition"
-    />
-    <router-link to="/beer-info" class="profile-page__btn">
-      What beer I want to drink today?
-    </router-link>
+  <div>
+    <progress-bar v-if="isLoading" />
+    <div v-else class="profile-page">
+      <Profile
+        :photo="getProfileInfo.avatar"
+        :first-name="getProfileInfo.first_name"
+        :last-name="getProfileInfo.last_name"
+        :birth-date="getProfileInfo.date_of_birth"
+        :position="getPosition"
+      />
+      <router-link to="/beer-info" class="profile-page__btn">
+        What beer I want to drink today?
+      </router-link>
+    </div>
   </div>
 </template>
 
 <script>
 import Profile from '@/components/Profile/Profile';
+import ProgressBar from '@/components/ProgressBar/ProgressBar.vue';
 
 export default {
   name: 'ProfilePage',
 
-  components: { Profile },
+  components: { Profile, ProgressBar },
 
   data() {
     return {
       profileInfo: null,
-      errorMessage: null
+      errorMessage: null,
+      isLoading: false
     };
   },
 
@@ -39,6 +44,8 @@ export default {
   },
 
   async mounted() {
+    this.isLoading = true;
+
     try {
       const response = await fetch(
         'https://random-data-api.com/api/users/random_user'
@@ -52,6 +59,7 @@ export default {
       this.errorMessage = error;
       console.error('There was an error!', error);
     }
+    this.isLoading = false;
   }
 };
 </script>

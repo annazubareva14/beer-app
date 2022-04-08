@@ -1,33 +1,38 @@
 <template>
-  <div class="beer-info-page">
-    <span class="beer-info-page__title"> My choice:</span>
-    <beer-info
-      :brand="getBeerInfo.brand"
-      :name="getBeerInfo.name"
-      :beer-style="getBeerInfo.style"
-      :hop="getBeerInfo.hop"
-      :yeast="getBeerInfo.yeast"
-      :malts="getBeerInfo.malts"
-      :ibu="getBeerInfo.ibu"
-      :alcohol="getBeerInfo.alcohol"
-      :blg="getBeerInfo.blg"
-    />
-    <router-link to="/" class="beer-info-page__btn"> back </router-link>
+  <div>
+    <progress-bar v-if="isLoading" />
+    <div v-else class="beer-info-page">
+      <span class="beer-info-page__title"> My choice:</span>
+      <beer-info
+        :brand="getBeerInfo.brand"
+        :name="getBeerInfo.name"
+        :beer-style="getBeerInfo.style"
+        :hop="getBeerInfo.hop"
+        :yeast="getBeerInfo.yeast"
+        :malts="getBeerInfo.malts"
+        :ibu="getBeerInfo.ibu"
+        :alcohol="getBeerInfo.alcohol"
+        :blg="getBeerInfo.blg"
+      />
+      <router-link to="/" class="beer-info-page__btn"> back </router-link>
+    </div>
   </div>
 </template>
 
 <script>
-import BeerInfo from '../components/BeerInfo/BeerInfo.vue';
+import BeerInfo from '@/components/BeerInfo/BeerInfo.vue';
+import ProgressBar from '@/components/ProgressBar/ProgressBar.vue';
 
 export default {
   name: 'BeerInfoPage',
 
-  components: { BeerInfo },
+  components: { BeerInfo, ProgressBar },
 
   data() {
     return {
       beerInfo: null,
-      errorMessage: null
+      errorMessage: null,
+      isLoading: false
     };
   },
 
@@ -38,6 +43,8 @@ export default {
   },
 
   async mounted() {
+    this.isLoading = true;
+
     try {
       const response = await fetch(
         'https://random-data-api.com/api/beer/random_beer '
@@ -51,6 +58,7 @@ export default {
       this.errorMessage = error;
       console.error('There was an error!', error);
     }
+    this.isLoading = false;
   }
 };
 </script>
